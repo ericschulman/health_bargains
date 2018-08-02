@@ -1,0 +1,2 @@
+# bargains
+Code modeling bargaining
