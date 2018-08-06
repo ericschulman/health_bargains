@@ -48,6 +48,7 @@ def seq(t1=Symbol('t_1'),
            m2=Symbol('m_2'),
            b1=Symbol('b_1'),
            b2=Symbol('b_2')):
+
     #profits
     pi1 = .5*( (t2-t1)/3 +q)*(1 + (t2-t1)/(3*q) )
     pi2 = .5*( (t1-t2)/3 +q)*(1 + (t1-t2)/(3*q) )
@@ -75,13 +76,12 @@ def seq(t1=Symbol('t_1'),
     return (l,q,m1,m2,b1,b2,t1_param,t2_param,pi1_param,pi2_param)
     
 
-def plotter(fname, game, ranger, scaler):
+def plotter0(fname, game, ranger, scaler):
     out = open(fname,"w+")
     out.write('l,lambda,mu_1,mu_2,beta_1,beta_2,theta_1,theta_2,pi_1,pi_2\n')
     for l in ranger:
         l = l/scaler
-        result = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n'%game(l = l,q = 1, m1 = .5, m2 = .5, b1 = .5,b2 = .5)
+        result = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n'%game(l = l, q = 1, m1 = .5, m2 = .5, b1 = .5,b2 = .5)
         out.write(result)
     out.close()
 
-plotter('test.csv',simult,range(50,100,2),10.0)
