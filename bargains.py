@@ -85,3 +85,11 @@ def plotter0(fname, game, ranger, scaler):
         out.write(result)
     out.close()
 
+
+def plotter(game, ranger, scaler):
+    result = []
+    for l in ranger:
+        l = l/scaler
+        result.append(game(l = l,q = 1, m1 = .5, m2 = .5, b1 = .5,b2 = .5))
+    result = pd.DataFrame(result, columns=['l','lambda','mu_1','mu_2','beta_1','beta_2','theta_1','theta_2','pi_1','pi_2'])
+    return result
