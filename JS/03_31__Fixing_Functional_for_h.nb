@@ -1,0 +1,153 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4726,        145]
+NotebookOptionsPosition[      4226,        128]
+NotebookOutlinePosition[      4636,        144]
+CellTagsIndexPosition[      4593,        141]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "This", " ", "is", " ", "the", " ", "correction", " ", "to", " ", 
+     "Writeup", " ", "03", "_", "22", " ", "in", " ", "which", " ", "we", " ",
+      "replace", " ", "pi_h", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "\\", "setminus"}], " ", "i"}], "=", "2"}], ")"}], " ", 
+     "with", " ", "phi_", "1", " ", "instead", " ", "of", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"v", "-", 
+        RowBox[{"\\", "lambda"}]}], ")"}], "/", "2."}], " ", "The", " ", 
+     "partial", " ", "is", " ", "still", " ", "zero"}], ",", " ", 
+    RowBox[{
+     RowBox[{"so", " ", "only", " ", "M_", "2", " ", 
+      RowBox[{"changes", ".", " ", "The"}], " ", "assumption", " ", "is", " ",
+       "also", " ", "that", " ", "s_", 
+      RowBox[{"1", "^"}]}], "*=", "1."}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       FractionBox["1", "2"], 
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{"-", "2"}], 
+         RowBox[{
+          RowBox[{"3", "\[Lambda]"}], "+", 
+          SubscriptBox["\[Phi]", "1"], "-", 
+          SubscriptBox["\[Phi]", "2"]}]], ")"}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          FractionBox["1", 
+           RowBox[{"6", "\[Lambda]"}]], 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", 
+             SuperscriptBox[
+              SubscriptBox["\[Phi]", "2"], "2"]}], "+", 
+            RowBox[{
+             SubscriptBox["\[Phi]", "1"], 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"3", "\[Lambda]"}], "-", 
+               SubscriptBox["\[Phi]", "1"]}], ")"}]}], "+", 
+            RowBox[{
+             SubscriptBox["\[Phi]", "2"], 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"3", "\[Lambda]"}], "+", 
+               RowBox[{"2", 
+                SubscriptBox["\[Phi]", "1"]}]}], ")"}]}]}], ")"}]}], "-", 
+         SubscriptBox["\[Phi]", "1"]}], ")"}]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        FractionBox["1", "2"], ")"}], 
+       RowBox[{"(", 
+        RowBox[{
+         FractionBox["1", "2"], "+", 
+         FractionBox[
+          RowBox[{"(", 
+           RowBox[{
+            SubscriptBox["\[Phi]", "1"], "-", 
+            SubscriptBox["\[Phi]", "2"]}], ")"}], 
+          RowBox[{"3", "\[Lambda]"}]], "-", "1"}], ")"}]}]}], "\[Equal]", 
+     "0"}], ",", 
+    SubscriptBox["\[Phi]", "2"]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.826192510125085*^9, 3.8261925626673603`*^9}, {
+   3.826193895529685*^9, 3.8261939032211018`*^9}, 3.82619403501229*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"8582ac87-e227-494a-9f6e-37307e07c1ca"],
+
+Cell[BoxData[{
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    SubscriptBox["\[Phi]", "2"], "\[Rule]", 
+    RowBox[{
+     FractionBox["1", "4"], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "3"}], " ", "\[Lambda]"}], "+", 
+       RowBox[{"4", " ", 
+        SubscriptBox["\[Phi]", "1"]}]}], ")"}]}]}], "}"}], 
+  "}"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Something", " ", "of", " ", "a", " ", 
+    "\"\<guess that... phi_2=phi_1-3/4\\lambda solution\>\"", " ", "then", 
+    " ", "the", " ", "derivative", " ", "is", " ", "etcetcetcetc", 
+    "\"\< (plug in some guess for \\partial\\phi_1/\\partial\\phi_2)\>"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.826194269756814*^9, 3.8261942932892957`*^9}, {
+  3.8261943273679323`*^9, 
+  3.8261943462821517`*^9}},ExpressionUUID->"cce6f36d-e4c4-4b90-9d90-\
+5410ea9ac7e5"]
+}, Open  ]]
+},
+WindowSize->{867.75, 288.},
+WindowMargins->{{Automatic, -88.5}, {Automatic, -680.25}},
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"4aafc888-660c-460e-953b-ae973fc7c8a5"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 2748, 76, 133, "Input",ExpressionUUID->"8582ac87-e227-494a-9f6e-37307e07c1ca"],
+Cell[3331, 100, 879, 25, 83, InheritFromParent,ExpressionUUID->"cce6f36d-e4c4-4b90-9d90-5410ea9ac7e5"]
+}, Open  ]]
+}
+]
+*)
+
