@@ -129,3 +129,5 @@ def plotfunc():
 if __name__=="__main__":
     plotfunc()
 # "The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()" is my compiling error. I'm not sure how to account for multiple solutions with this format, since the previous setting I worked with this, there was a singular solution (or, at least, when I plotted best-responses, intersections corresponded to solutions.) This may be the wrong approach. I'm not entirely certain just yet. 
+
+# An alternative approach would be to apply the first-order approach to the previous case, rather than opting to try to use the plotting approach. The issue of multiplicity of solutions is ruled out, since it will provide the vector of solutions if there exist multiple. 
