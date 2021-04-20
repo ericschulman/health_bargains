@@ -15,12 +15,15 @@ costH = 0
 # First test: linear demand case. 
 # We define market share $s_i$ to proceed this way. With linear demand, we have the Hotelling model solution. We include the price here, since price is rather easy to find in closed form in this linear case. However, when we move to logit, this is no longer the case. I let insurer 1 correspond to insurer i, and insurer 2 correspond to insurer j without loss. 
 Phi1 = Symbol('Phi1', real = True)
-Phi2 = Symbol('Phi2', real = True)
+Phi2 = Symbol('Phi2', real = True) # Don't need to declare these as symbols 
 p1 = Symbol('p1', real = True)
 p2 = Symbol('p2', real = True)
 # Since we already have the optimal prices in closed form, the inclusion of p1 and p2 as symbols isn't entirely necessary. This approach is simply for generality for the logit case. 
-optimalPrice1 = (2 * Phi1 + Phi2) / 3 + lambda1
-optimalPrice2 = (2 * Phi2 + Phi1)/ 3 + lambda1
+def optimalPrice1(Phi1, Phi2, lambda1):
+    return (2 * Phi1 + Phi2) / 3 + lambda1 #this avoids symbolic issues, since these are now arguments of NUMBERS and manipulates them that way rather than "relational" issues with symbols
+def optimalPrice2(Phi1, Phi2, lambda1):
+    return (2 * Phi2 + Phi1)/ 3 + lambda1
+# can then find optimum without needing to differentiate, by using an optimize/maximize command
 marketshareLinear1 = (1 + (1 / lambda1) * (optimalPrice2 - optimalPrice1)) / 2 #(p2 - p1)) / 2 would be the case used for logit, since we haven't determined p1 or p2 in that case. 
 marketshareLinear2 = (1 + (1 / lambda1) * (optimalPrice1 - optimalPrice2)) / 2 #(p1 - p2)) / 2
 # Defining profit functions for insurers  1 ($i$) and 2 ($j$), and the hospital $h$. 
