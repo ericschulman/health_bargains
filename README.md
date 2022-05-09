@@ -27,7 +27,7 @@ The market share of each insurer in the insurance market `s` is determined by pr
 
 The insurers' regard their reimbursements as their linear marginal costs. Thus, hospital profits are given by the following expression below. 
 
-![equation](https://latex.codecogs.com/svg.image?pi_i(mathcal{G},phi,p)&space;=&space;&space;(p_i&space;-&space;phi_i&space;)&space;s_i)
+![equation](https://latex.codecogs.com/svg.image?pi_i(mathcal{G},phi,p))
 
 The hospital has a linear marginal cost, `c_{it}` associated with a specific negotiation `t`. Therefore, its payoff is given below. We also experiment with an insurer marginal cost.
 
