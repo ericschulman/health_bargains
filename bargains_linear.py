@@ -44,7 +44,6 @@ def outside_simlt(phi1, phi2, cost, wtp,  mc, active=False, recapture = False):
     assuming listprice high enough"""
     mc1,mc2 = mc
 
-
     if active:
         return (wtp-cost)/2  #outside cost is other insurer?
 
@@ -65,8 +64,8 @@ def outside_simlt(phi1, phi2, cost, wtp,  mc, active=False, recapture = False):
 def nash_in_nash_act(phi1, phi2, cost, wtp, mc, beta=.5,active=True):
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
     #print(phi2,outside_simlt(phi1, phi2,cost, wtp , mc, active=active))
-    obj = -1*(np.log(max(hosp_profit-outside_simlt(phi1, phi2,cost, wtp , mc, active=active),1e-4))*(1-beta) 
-              + np.log(profits1)*beta)
+    obj = -1*(np.log(max(hosp_profit-outside_simlt(phi1, phi2,cost, wtp , mc, active=active),1e-5))*(1-beta) 
+              + np.log(max(profits1,1e-5))*beta)
     return obj
 
 
@@ -110,8 +109,8 @@ def nash_in_nash_pass(phi1, phi2, cost, wtp, mc, beta=.5,outside=None):
         outside = outside_simlt(phi1, phi2,cost, wtp , mc,active=False)
 
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
-    obj = -1*(np.log(max(hosp_profit-outside,1e-4))*(1-beta) 
-              + np.log(profits1)*beta)
+    obj = -1*(np.log(max(hosp_profit-outside,1e-5))*(1-beta) 
+              + np.log(max(profits1,1e-5))*beta)
     return obj
 
 
@@ -169,8 +168,8 @@ def nash_in_nash_seq(phi1, phi2, cost, wtp, mc, beta=.5,outside=None):
         outside = outside_simlt(phi1, phi2,cost, wtp , mc, active=True)
 
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
-    obj = -1*(np.log(max(hosp_profit-outside,1e-4))*(1-beta) 
-              + np.log(profits1)*beta)
+    obj = -1*(np.log(max(hosp_profit-outside,1e-5))*(1-beta) 
+              + np.log(max(profits1,1e-5))*beta)
     return obj
 
 
@@ -205,3 +204,14 @@ def seq_bargain(phi1, cost, wtp, mc, betas=[.5,.5]):
         
     return phi1, phi2
 
+###################################################################3
+################### misc helpers ##################################
+####################################################################
+
+def solve_eq(phi1,phi2,cost,wtp,mc):
+    phi1,phi2 = phi1[0],phi2[0]
+    p1,p2 = calc_price(phi1,phi2,cost,wtp,mc)
+    s1 = calc_s( phi1,phi2 ,cost,wtp,mc)
+    s1 = s1
+    s2 = 1-s1
+    return phi1,phi2,p1,p2,s1,s2
