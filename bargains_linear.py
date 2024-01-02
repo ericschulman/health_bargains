@@ -34,7 +34,7 @@ def calc_profits(phi1,phi2,cost, wtp, mc):
     #print(s,'profit')
 
     if phi1 <= 0 or phi2 <= 0:
-        return 1e-5,1e-5,1e-5
+        return 1e-8,1e-8,1e-8
 
     return hosp_profit, profits1, profits2
 
@@ -64,8 +64,8 @@ def outside_simlt(phi1, phi2, cost, wtp,  mc, active=False, recapture = False):
 def nash_in_nash_act(phi1, phi2, cost, wtp, mc, beta=.5,active=True):
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
     #print(phi2,outside_simlt(phi1, phi2,cost, wtp , mc, active=active))
-    obj = -1*(np.log(max(hosp_profit-outside_simlt(phi1, phi2,cost, wtp , mc, active=active),1e-5))*(1-beta) 
-              + np.log(max(profits1,1e-5))*beta)
+    obj = -1*(np.log(max(hosp_profit-outside_simlt(phi1, phi2,cost, wtp , mc, active=active),1e-8))*(1-beta) 
+              + np.log(max(profits1,1e-8))*beta)
     return obj
 
 
@@ -83,8 +83,8 @@ def simult_bargain_act(phi1, phi2, cost, wtp, mc, betas=[.5,.5],active=True):
     #loop variables, check on this...
     diff =  np.maximum(phi1,phi2)
     phi10,phi20 = 0,0
-    maxiter = 10
-    while maxiter >=0 and diff > 10e-7:
+    maxiter = 20
+    while maxiter >=0 and diff > 10e-8:
         #seems as though there is a contraction mapping here, need to think more about why
         phi1 = bargain_helper_act(phi1, phi2, cost, wtp, mc, beta=betas[0] ,active=active)
         phi2 = bargain_helper_act(phi2, phi1, cost, wtp, mc[::-1], beta=betas[1],active=active)
@@ -109,8 +109,8 @@ def nash_in_nash_pass(phi1, phi2, cost, wtp, mc, beta=.5,outside=None):
         outside = outside_simlt(phi1, phi2,cost, wtp , mc,active=False)
 
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
-    obj = -1*(np.log(max(hosp_profit-outside,1e-5))*(1-beta) 
-              + np.log(max(profits1,1e-5))*beta)
+    obj = -1*(np.log(max(hosp_profit-outside,1e-8))*(1-beta) 
+              + np.log(max(profits1,1e-8))*beta)
     return obj
 
 
@@ -128,7 +128,7 @@ def simult_bargain_pass(phi1, phi2, cost, wtp, mc, betas=[.5,.5]):
     diff =  np.maximum(phi1,phi2)
     phi10,phi20 = 0,0
     maxiter = 20
-    while maxiter >=0 and diff > 10e-7:
+    while maxiter >=0 and diff > 10e-8:
         #seems as though there is a contraction mapping here, need to think more about why
         
         outside1 = outside_simlt(phi10, phi20, cost, wtp,  mc, active=False)
@@ -168,8 +168,8 @@ def nash_in_nash_seq(phi1, phi2, cost, wtp, mc, beta=.5,outside=None):
         outside = outside_simlt(phi1, phi2,cost, wtp , mc, active=True)
 
     hosp_profit, profits1, profits2 = calc_profits(phi1, phi2,  cost,  wtp, mc)
-    obj = -1*(np.log(max(hosp_profit-outside,1e-5))*(1-beta) 
-              + np.log(max(profits1,1e-5))*beta)
+    obj = -1*(np.log(max(hosp_profit-outside,1e-8))*(1-beta) 
+              + np.log(max(profits1,1e-8))*beta)
     return obj
 
 
@@ -189,13 +189,14 @@ def seq_bargain(phi1, cost, wtp, mc, betas=[.5,.5]):
     
     diff =  np.maximum(phi1,phi2)
     phi10,phi20 = phi1+.5,phi2+.5
-    maxiter = 20
-    while maxiter >=0 and diff > 10e-7:
+    maxiter = 30
+    while maxiter >=0 and diff > 10e-8:
         outside = outside_simlt(phi10, phi20, cost, wtp,  mc, active=True)
 
         #seems as though there is a contraction mapping here, need to think more about why
-        phi2 = bargain_helper_seq(phi20, phi10, cost, wtp, mc[::-1], beta=betas[1],outside=phi10)
         phi1 = bargain_helper_seq(phi10, phi20, cost, wtp, mc, beta=betas[0] ,outside=outside)
+        phi2 = bargain_helper_seq(phi20, phi10, cost, wtp, mc[::-1], beta=betas[1],outside=phi10)
+
         
         #update loop variables
         diff = np.abs(np.maximum(phi1 - phi10,phi2-phi20))[0]
