@@ -9,6 +9,7 @@ import pandas as pd
 #################### logit simult ########################################
 ##########################################################################
 
+maxiter = 50
 #solve nash bargaining with one insurer
 
 def calc_shares1(p1, cost, wtp):
@@ -21,7 +22,7 @@ def calc_shares1(p1, cost, wtp):
 
 def calc_profits_price_shares1(phi1,cost,wtp,mc1):
     pi1 = lambda p : -1*calc_shares1(p, cost, wtp)[0]*(p-phi1 -mc1)
-    p1 = minimize(pi1,1,method='Nelder-Mead',tol=1e-6).x
+    p1 = minimize(pi1,1,method='Nelder-Mead',options={'maxiter':maxiter,'disp': False}).x
     s1 = calc_shares1(p1,  cost, wtp)
     return p1[0], s1[0], s1[0]*(p1[0]-phi1 -mc1)
 
@@ -34,7 +35,7 @@ def nash_in_nash_obj1(phi1, cost, wtp, mc1, beta=.5):
 
 def nash_in_nash1(cost,wtp,mc1,outside_option=False):
     obj1 = lambda phi : nash_in_nash_obj1(phi,cost,wtp,mc1)
-    result = minimize(obj1,13,method='Nelder-Mead',tol=1e-6)
+    result = minimize(obj1,13,method='Nelder-Mead',options={'maxiter':maxiter,'disp': False})
     
     if outside_option:
         return result.x[0]*calc_shares1(result.x[0], cost, wtp)
@@ -47,11 +48,13 @@ def calc_shares(p1, p2,  cost, wtp):
     assumes interior solution"""
     u1 = (wtp[0] - p1)/cost
     u2 = (wtp[1] - p2)/cost
-    s1 = np.exp(u1)/(np.exp(u1)+ np.exp(u2) + 1 )
-    s2 = np.exp(u2)/(np.exp(u1)+ np.exp(u2) + 1 )
+    if  ~np.isinf(np.exp(u1)) & ~np.isinf(np.exp(u2)):
+        s1 = np.exp(u1)/ (np.exp(u1)+ np.exp(u2) + 1 )
+        s2 = np.exp(u2)/ (np.exp(u1)+ np.exp(u2) + 1 )
+        return s1,s2
+    else:
+        return 1.*(u1 > u2), 1.*(u2 > u1)
     
-    return s1,s2
-  
 
 def calc_profits_price_shares(phi1,phi2,cost,wtp,mc):
     mc1,mc2 = mc
@@ -67,8 +70,8 @@ def calc_profits_price_shares(phi1,phi2,cost,wtp,mc):
         pi2 = lambda p :  -1*calc_shares(p10, p,  cost, wtp)[1]*(p-phi2 -mc2)
 
         
-        p1 = minimize(pi1,p10).x
-        p2 = minimize(pi2,p20).x
+        p1 = minimize(pi1,p10,method='Nelder-Mead',options={'maxiter':maxiter,'disp': False}).x
+        p2 = minimize(pi2,p20,method='Nelder-Mead',options={'maxiter':maxiter,'disp': False}).x
         
         #update loop variables
         diff = np.abs(np.maximum(p1 - p10,p2-p20))[0]
@@ -77,6 +80,11 @@ def calc_profits_price_shares(phi1,phi2,cost,wtp,mc):
         
     s1,s2 = calc_shares(p1, p2,  cost, wtp)
     return p1, p2, s1,s2, s1*(p1-phi1 -mc1), s2*(p2-phi2 -mc2)
+
+def solve_eq(phi1,phi2,cost,wtp,mc):
+    p1, p2, s1,s2, _, _ = calc_profits_price_shares(phi1,phi2,cost,wtp,mc)
+    return phi1[0],phi2[0],p1[0],p2[0],s1[0],s2[0]
+
 
 ##########################################################################
 #################### logit sim ###########################################
@@ -98,7 +106,7 @@ def nash_in_nash_sim(phi1, phi2, cost, wtp, mc, beta=.5, outside_option=None):
 def bargain_helper_sim(phi1, phi2, cost, wtp, mc, beta=.5,outside_option=None):
     """solve each firm 1s optimization holding phi 2 fixed"""
     result = minimize(nash_in_nash_sim, phi1, args=(phi2,cost, wtp, mc,  beta, outside_option),
-                      method='Nelder-Mead', options={'disp': False})
+                      method='Nelder-Mead', options={'maxiter':maxiter,'disp': False})
     return result.x
 
 
@@ -150,7 +158,7 @@ def nash_in_nash_seq(phi1, phi2, cost, wtp, mc, beta=.5, outside_option=None):
 def bargain_helper_seq(phi1, phi2, cost, wtp, mc, beta=.5,outside_option=None):
     """solve each firm 1s optimization holding phi 2 fixed"""
     result = minimize(nash_in_nash_seq, phi1, args=(phi2,cost, wtp, mc,  beta, outside_option),
-                      method='Nelder-Mead', options={'disp': False})
+                      method='Nelder-Mead', options={'maxiter':maxiter,'disp': False})
     return result.x
 
 
