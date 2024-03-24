@@ -20,6 +20,47 @@ active_result.to_csv('fake_data/active_data_%s.csv'%i)
 passive_result.to_csv('fake_data/passive_data_%s.csv'%i)
 ```
 
+
+## Logit demand
+
+Note that for the logit results I use the following sets of files.
+
+For wtp=25, lambda =5, beta1=beta2= .5 I use
+
+```
+fake_data_wtp_logit/seq_data_0.csv
+fake_data_wtp_logit/active_data_0.csv
+fake_data_wtp_logit/passive_data_0.csv
+```
+
+For wtp=30, lambda =5, beta1=.5 beta2= .3 I use
+
+```
+ fake_data_wtp_logit_fixed/seq_data_0.csv
+fake_data_wtp_logit_fixed/seq_data_0.csv
+fake_data_wtp_logit_fixed/seq_data_0.csv
+```
+
+
+For wtp=30, lambda =5, beta1=.45 beta2= .5 I use
+
+```
+ fake_data_wtp_logit_fixed/seq_data_1.csv
+fake_data_wtp_logit_fixed/seq_data_1.csv
+fake_data_wtp_logit_fixed/seq_data_.csv
+```
+
+### Logit parameter estimates
+
+Parameter estimates for 
+
+
+For
+* wtp=30, lambda =5, beta1=.5 beta2= .3 
+* wtp=30, lambda =5, beta1=.45 beta2= .5 I use
+
+can be found in fake_params_logit_032224
+
 ## Notes
 
 Here are some notes regarding the generated data:
